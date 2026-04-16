@@ -1,5 +1,5 @@
 # VM Setup Guide
-## SOC Automation Lab 2.0 | Chinemelum Osholake
+## SOC Automation Lab 2.0 
 
 ---
 
