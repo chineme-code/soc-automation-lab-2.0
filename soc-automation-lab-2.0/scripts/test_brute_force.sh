@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================================
 # test_brute_force.sh
-# SOC Automation Lab 2.0 | Chinemelum Osholake
+# SOC Automation Lab 2.0
 #
 # Run on Kali Linux VM ONLY
 # Generates safe, controlled failed RDP authentication attempts
