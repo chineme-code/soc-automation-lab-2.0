@@ -1,6 +1,6 @@
 # ============================================================
 # enable_ps_logging.ps1
-# SOC Automation Lab 2.0 | Chinemelum Osholake
+# SOC Automation Lab 2.0
 #
 # Run as Administrator on the Windows 10/11 VM
 # Enables ScriptBlock and Module logging so EventID 4104/4103
