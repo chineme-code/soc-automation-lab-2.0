@@ -1,6 +1,5 @@
 # ============================================================
 # n8n Docker Compose — SOC Automation Lab 2.0
-# Chinemelum Osholake | Smarkt Technologies
 #
 # Usage:
 #   sudo chown -R 1000:1000 n8n_data/
