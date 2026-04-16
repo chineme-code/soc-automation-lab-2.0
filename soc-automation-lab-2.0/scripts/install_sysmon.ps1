@@ -1,6 +1,6 @@
 # ============================================================
 # install_sysmon.ps1
-# SOC Automation Lab 2.0 | Chinemelum Osholake
+# SOC Automation Lab 2.0
 #
 # Run as Administrator on the Windows 10/11 VM
 # Downloads Sysmon + SwiftOnSecurity config and installs
