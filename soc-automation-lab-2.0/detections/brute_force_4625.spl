@@ -1,0 +1,32 @@
+| SOC Automation Lab 2.0 — Splunk Detection
+| Name:      Brute Force / Repeated Failed Logons
+| EventCode: 4625 (Windows Security Log)
+| MITRE:     TA0006 Credential Access / T1110 Brute Force
+| Author:    Chinemelum Osholake
+| Threshold: 5+ failed logons within 5-minute window
+|
+| Save as alert: Scheduled · Cron: */5 * * * * · Trigger: results > 0
+| Webhook action: POST to n8n webhook URL
+
+index=take-code sourcetype="WinEventLog:Security" EventCode=4625
+| bin _time span=5m
+| stats
+    count                    as failed_attempts
+    min(_time)               as first_seen
+    max(_time)               as last_seen
+    values(Source_Network_Address) as source_ips
+    values(Account_Name)     as targeted_accounts
+    dc(Account_Name)         as unique_accounts
+  by host _time
+| where failed_attempts >= 5
+| eval severity = case(
+    failed_attempts >= 20, "CRITICAL",
+    failed_attempts >= 10, "HIGH",
+    failed_attempts >= 5,  "MEDIUM",
+    true(),                "LOW"
+  )
+| eval mitre_tactic    = "TA0006 - Credential Access"
+| eval mitre_technique = "T1110 - Brute Force"
+| eval detection_name  = "Brute-Force-Failed-Logons"
+| table _time host detection_name failed_attempts unique_accounts
+        targeted_accounts source_ips severity mitre_tactic mitre_technique

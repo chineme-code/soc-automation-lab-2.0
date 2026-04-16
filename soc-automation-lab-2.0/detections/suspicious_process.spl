@@ -1,0 +1,22 @@
+| SOC Automation Lab 2.0 — Splunk Detection
+| Name:      Suspicious Process Execution (LOLBins / Unusual Child Processes)
+| EventCode: Sysmon EventID 1 (Process Creation)
+| MITRE:     TA0002 Execution / T1059 Command and Scripting Interpreter
+| Author:    Chinemelum Osholake
+| Requires:  Sysmon installed on Windows VM + Sysmon channel in inputs.conf
+|
+| Save as alert: Scheduled · Cron: */5 * * * * · Trigger: results > 0
+
+index=take-code sourcetype="XmlWinEventLog:Sysmon" EventCode=1
+| eval proc_lower   = lower(Image)
+| eval parent_lower = lower(ParentImage)
+| where
+    match(proc_lower, "(?i)(cmd\.exe|powershell\.exe|wscript\.exe|cscript\.exe|mshta\.exe|rundll32\.exe|regsvr32\.exe|certutil\.exe|bitsadmin\.exe|whoami\.exe|net\.exe|ipconfig\.exe)")
+    AND
+    match(parent_lower, "(?i)(winword\.exe|excel\.exe|outlook\.exe|explorer\.exe|svchost\.exe|msiexec\.exe)")
+| eval severity        = "HIGH"
+| eval mitre_tactic    = "TA0002 - Execution"
+| eval mitre_technique = "T1059 - Command and Scripting Interpreter"
+| eval detection_name  = "Suspicious-Process-Execution"
+| table _time host User Image CommandLine ParentImage ParentCommandLine
+        severity mitre_tactic mitre_technique detection_name

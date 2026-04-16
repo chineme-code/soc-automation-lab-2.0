@@ -1,0 +1,30 @@
+| SOC Automation Lab 2.0 — Splunk Detection
+| Name:      Suspicious Outbound Network Connections
+| EventCode: Sysmon EventID 3 (Network Connection)
+| MITRE:     TA0011 Command and Control / T1071 Application Layer Protocol
+| Author:    Chinemelum Osholake
+| Requires:  Sysmon installed on Windows VM
+|
+| Save as alert: Scheduled · Cron: */5 * * * * · Trigger: results > 0
+
+index=take-code sourcetype="XmlWinEventLog:Sysmon" EventCode=3
+| eval proc_lower  = lower(Image)
+| eval dest_port   = tonumber(DestinationPort)
+| where
+    NOT match(DestinationIp, "^(127\.|10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)")
+    AND (
+      match(proc_lower, "(?i)(powershell\.exe|cmd\.exe|wscript\.exe|cscript\.exe|regsvr32\.exe|rundll32\.exe|mshta\.exe)")
+      OR (dest_port > 1024 AND NOT dest_port IN (8080, 8443, 443, 80))
+    )
+| stats
+    count                      as connection_count
+    values(DestinationIp)      as dest_ips
+    values(DestinationPort)    as dest_ports
+  by host Image User
+| where connection_count >= 3
+| eval severity = if(connection_count >= 10, "CRITICAL", "HIGH")
+| eval mitre_tactic    = "TA0011 - Command and Control"
+| eval mitre_technique = "T1071 - Application Layer Protocol"
+| eval detection_name  = "Suspicious-Network-Connection"
+| table host User Image dest_ips dest_ports connection_count
+        severity mitre_tactic mitre_technique detection_name

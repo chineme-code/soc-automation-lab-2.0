@@ -1,0 +1,34 @@
+# SOC Automation Lab 2.0 — .gitignore
+
+# Never commit credentials or API keys
+*.env
+.env.*
+secrets.yaml
+api_keys.txt
+credentials.json
+
+# Never commit real passwords or VM login details
+passwords.txt
+vm-credentials.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# n8n exports with embedded credentials
+*-with-credentials.json
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak

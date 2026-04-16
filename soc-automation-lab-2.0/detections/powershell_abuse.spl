@@ -1,0 +1,27 @@
+| SOC Automation Lab 2.0 — Splunk Detection
+| Name:      PowerShell Abuse — Encoded Commands / Download Cradles
+| EventCode: Windows PowerShell EventID 4104 (ScriptBlock Logging)
+| MITRE:     TA0002 Execution / T1059.001 PowerShell
+| Author:    Chinemelum Osholake
+| Requires:  PowerShell ScriptBlock logging enabled on Windows VM
+|            Run scripts/enable_ps_logging.ps1 to enable
+|
+| Save as alert: Scheduled · Cron: */5 * * * * · Trigger: results > 0
+
+index=take-code sourcetype="WinEventLog:PowerShell" EventCode=4104
+| eval script_lower = lower(ScriptBlockText)
+| where
+    match(script_lower, "(?i)(-encodedcommand|-enc |-e |-ec )")
+    OR match(script_lower, "(?i)(invoke-expression|iex\(|invoke-webrequest|downloadstring|downloadfile|net\.webclient|start-bitstransfer)")
+    OR match(script_lower, "(?i)(bypass|hidden|noprofile|-nop |-windowstyle hidden)")
+    OR match(script_lower, "(?i)(invoke-mimikatz|invoke-bloodhound|invoke-empire|amsiutils|amsi\.dll)")
+| eval severity = case(
+    match(script_lower, "(?i)(mimikatz|bloodhound|empire|amsi)"), "CRITICAL",
+    match(script_lower, "(?i)(downloadstring|invoke-expression|iex\()"),  "HIGH",
+    true(), "MEDIUM"
+  )
+| eval mitre_tactic    = "TA0002 - Execution"
+| eval mitre_technique = "T1059.001 - PowerShell"
+| eval detection_name  = "PowerShell-Abuse-Detected"
+| table _time host UserID ScriptBlockText severity
+        mitre_tactic mitre_technique detection_name

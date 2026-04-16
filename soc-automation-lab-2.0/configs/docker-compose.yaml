@@ -1,0 +1,33 @@
+# ============================================================
+# n8n Docker Compose — SOC Automation Lab 2.0
+# Chinemelum Osholake | Smarkt Technologies
+#
+# Usage:
+#   sudo chown -R 1000:1000 n8n_data/
+#   sudo docker-compose up -d
+#   sudo docker-compose logs -f n8n
+#
+# Access: http://127.0.0.1:5678 (via VirtualBox port forwarding)
+# ============================================================
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_HOST=10.0.2.4
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - GENERIC_TIMEZONE=America/Denver
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=72
+      - N8N_LOG_LEVEL=info
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+    driver: local
