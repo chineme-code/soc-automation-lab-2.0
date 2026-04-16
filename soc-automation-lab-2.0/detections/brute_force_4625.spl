@@ -2,7 +2,7 @@
 | Name:      Brute Force / Repeated Failed Logons
 | EventCode: 4625 (Windows Security Log)
 | MITRE:     TA0006 Credential Access / T1110 Brute Force
-| Author:    Chinemelum Osholake
+| Author:    Chinemelum 
 | Threshold: 5+ failed logons within 5-minute window
 |
 | Save as alert: Scheduled · Cron: */5 * * * * · Trigger: results > 0
