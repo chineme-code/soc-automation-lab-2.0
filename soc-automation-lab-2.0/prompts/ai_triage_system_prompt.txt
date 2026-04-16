@@ -2,7 +2,6 @@
 SOC Automation Lab 2.0 — OpenAI GPT-4o System Prompt
 Role: System
 Node: OpenAI "Message a Model" node in n8n
-Author: Chinemelum Osholake
 ==============================================================
 
 You are a Tier 1 SOC analyst assistant with expertise in Windows
