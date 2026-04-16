@@ -301,10 +301,10 @@ All simulation activity targets lab VMs only on the isolated NATNetwork.
 
 ## Certifications & Context
 
-Built by **Chinemelum Osholake** — Cybersecurity Analyst Intern at Smarkt Technologies.  
+Built by **Chinemelum Umealajekwu** — Cybersecurity Analyst Intern at Smarkt Technologies.  
 MS Cybersecurity & Business Analytics, University of New Mexico (GPA: 4.09)  
 CompTIA Security+ | CompTIA CySA+
-
+With inspiration from MyDFIR YouTube channel. Please go and support him and the hard work he's putting in.
 ---
 
 ## Disclaimer
