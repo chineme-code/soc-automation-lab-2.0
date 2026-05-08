@@ -62,7 +62,7 @@ remaining portion still needs a human."
 
 ---
 
-## Why This Matters (NIW Context)
+## Why This Matters 
 
 Under-resourced critical infrastructure organizations — small hospitals,
 municipal utilities, rural government agencies — typically cannot staff
@@ -75,6 +75,3 @@ This lab demonstrates that a properly configured automation pipeline can:
 - Free the analyst to focus on the 27% of decisions that actually
   require human judgment rather than spending time on the 73% that
   can be reliably automated
-
-This addresses the resource asymmetry problem that is the core thesis
-of the Outershield Security LLC proposed endeavor.
