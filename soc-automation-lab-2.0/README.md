@@ -311,3 +311,4 @@ Built by **Chinemelum Umealajekwu**
 ## Disclaimer
 
 This project is for **educational and portfolio purposes only**. All activity was performed in an isolated, self-owned virtual machine lab environment. Nothing in this repository should be used against systems you do not own or have explicit written authorization to test. See `.github/DISCLAIMER.md` for full terms.
+Shout out to MyDFIR YouTube channel. Please go check it out.
