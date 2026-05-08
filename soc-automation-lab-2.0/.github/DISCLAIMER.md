@@ -46,4 +46,4 @@ The author accepts no responsibility for misuse of this material.
 
 ---
 
-*Chinemelum Osholake | Smarkt Technologies Cybersecurity Division*
+*Chinemelum  
